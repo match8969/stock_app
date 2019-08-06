@@ -90,3 +90,17 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+# Addition --------------------------------------------------  
+
+# ユーザー登録
+gem 'devise'
+
+# 画像
+gem 'carrierwave'
+gem 'mini_magick'
+
+# AWS
+gem 'aws-sdk'
+

@@ -43,3 +43,6 @@ vendor/bundle
  
 # mac finder
 .DS_Store
+
+# enviromnet
+.env
