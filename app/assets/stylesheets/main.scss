@@ -55,6 +55,12 @@ body {
       text-align: center;
       vertical-align: middle;
       line-height: 180px; /* これでbefore blockの高さが全体が設定KOK */
+
+      &:hover {
+        // 丸の中が変化
+        color: #d8d8d8;
+        background-color: #f0f0f0;
+      }
     }
 
     .icon-title {
