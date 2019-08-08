@@ -1,0 +1,68 @@
+
+/* --------------------------------
+ * base
+ * -------------------------------- */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  /*
+  background: #151515 url('../images/bg.png') no-repeat fixed left bottom;
+  background-size: cover;
+  color: #fff;
+  text-align: center;
+  font-size: 1.4rem;
+  font-family: Raleway, "Hiragino Kaku Gothic ProN",  Meiryo,  sans-serif;
+
+   */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+/* header */
+
+/* footer */
+.footer {
+  text-align: center;
+  background-color: #2E2F30;
+  color: #fff;
+}
+
+
+.list-index-buttons {
+  background-color: #d8d8d8;
+
+  .link-box {
+    text-align: center; /* box の iconを含む枠をを中央寄せしてる */
+    padding: 50px 0 50px;
+
+    .link-box-inner {
+      text-decoration: none;
+    }
+
+    .index-icon {
+      width: 200px;
+      height: 200px;
+      padding: 10px 0;
+      border: solid 3px red;
+      border-radius: 50%;
+      font-size: 6rem;
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 180px; /* これでbefore blockの高さが全体が設定KOK */
+    }
+
+    .icon-title {
+      margin: 10px 0 10px;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      font-family: "Comic Sans MS";
+    }
+  }
+
+}
