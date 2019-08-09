@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Companies</h1>
+<h1>会社一覧</h1>
 
 <table>
   <thead>
@@ -15,6 +15,8 @@
     <tr>
       <td><%= company.name %></td>
       <td><%= link_to 'Show', company %></td>
+      <td><%= render 'fav_form', company: company %></td>
+      <td><%= render 'hold_form', company: company %></td>
     </tr>
   <% end %>
   </tbody>
