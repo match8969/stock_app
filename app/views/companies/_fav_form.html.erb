@@ -1,5 +1,9 @@
 <% if user_signed_in? %>
-  <div><%= link_to "Fav", company_favorites_path(company), method: :post, remote: true %></div>
+  <% if current_user.already_faved_company?(company) %>
+    <div><%= link_to "お気に入りを取り消す", company_favorite_path(company, id: company.favorites.find_by(user_id: current_user.id)), method: :delete, remote: true %></div>
+  <% else %>
+    <div><%= link_to "お気に入りに追加", company_favorites_path(company), method: :post, remote: true %></div>
+  <% end %>
 <% else %>
   <div>You are not signed in....</div>
 <% end %>

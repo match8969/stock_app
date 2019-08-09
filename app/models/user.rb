@@ -4,4 +4,10 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable
 
   has_many :favorites, dependent: :destroy
+  has_many :fav_companies, through: :favorites, source: :company
+
+  def already_faved_company?(company)
+    self.fav_companies.exists?(id: company.id)
+  end
+
 end
