@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'stocks/create'
+  get 'stocks/edit'
+  get 'stocks/update'
+  get 'stocks/destroy'
   # Root
   root :to => "root#index"
   get 'root/index'
