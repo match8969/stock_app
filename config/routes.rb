@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-
-  get 'holdings/create'
-  get 'holdings/destroy'
   # Root
   root :to => "root#index"
   get 'root/index'
@@ -17,6 +14,7 @@ Rails.application.routes.draw do
     resources :companies
     resources :industries
     resources :countries
+    resources :markets
   end
 
   # Public
