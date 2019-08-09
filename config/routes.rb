@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+
   # Admin
   namespace :admin do
     resources :companies
@@ -16,6 +20,12 @@ Rails.application.routes.draw do
   # Public
   resources :companies, only: [:index, :show] do
     resources :favorites, only: [:create, :destroy]
+  end
+
+  # Development
+  if Rails.env.development?
+    # Confirmation Mail
+    mount LetterOpenerWeb::Engine, at: '/letter_opener'
   end
 
 end
