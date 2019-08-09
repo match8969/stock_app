@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
-  get 'favorites/create'
-  get 'favorites/destroy'
+
   # Root
   root :to => "root#index"
   get 'root/index'
 
   devise_for :users
 
+  # Admin
   namespace :admin do
     resources :companies
     resources :industries
     resources :countries
   end
+
+  # Public
+  resources :companies, only: [:index, :show] do
+    resources :favorites, only: [:create, :destroy]
+  end
+
 end
