@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'holdings/create'
+  get 'holdings/destroy'
   # Root
   root :to => "root#index"
   get 'root/index'
@@ -20,6 +22,7 @@ Rails.application.routes.draw do
   # Public
   resources :companies, only: [:index, :show] do
     resources :favorites, only: [:create, :destroy]
+    resources :holdings, only: [:create, :destroy]
   end
 
   # Development

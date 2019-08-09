@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_09_025108) do
+ActiveRecord::Schema.define(version: 2019_08_09_062723) do
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -36,6 +36,16 @@ ActiveRecord::Schema.define(version: 2019_08_09_025108) do
     t.index ["company_id"], name: "index_favorites_on_company_id"
     t.index ["user_id", "company_id"], name: "index_favorites_on_user_id_and_company_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "holdings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_holdings_on_company_id"
+    t.index ["user_id", "company_id"], name: "index_holdings_on_user_id_and_company_id", unique: true
+    t.index ["user_id"], name: "index_holdings_on_user_id"
   end
 
   create_table "industries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -71,4 +81,6 @@ ActiveRecord::Schema.define(version: 2019_08_09_025108) do
 
   add_foreign_key "favorites", "companies"
   add_foreign_key "favorites", "users"
+  add_foreign_key "holdings", "companies"
+  add_foreign_key "holdings", "users"
 end
