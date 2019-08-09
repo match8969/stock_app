@@ -4,7 +4,7 @@ class Admin::MarketsController < ApplicationController
   # GET /admin/markets
   # GET /admin/markets.json
   def index
-    @markets = Admin::Market.all
+    @markets = Market.all
   end
 
   # GET /admin/markets/1
