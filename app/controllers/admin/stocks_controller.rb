@@ -1,6 +1,5 @@
 class Admin::StocksController < ApplicationController
-before_action :set_stock, only: [:edit, :update, :destroy]
-
+  before_action :set_stock, only: [:edit, :update, :destroy]
 
   def create
     @stock = stock.new(stock_params)
@@ -40,13 +39,13 @@ before_action :set_stock, only: [:edit, :update, :destroy]
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_stock
-    @stock = stock.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_stock
+      @stock = stock.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def stock_params
-    params.require(:stock).permit(:name)
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def stock_params
+      params.require(:stock).permit(:name)
+    end
 end
