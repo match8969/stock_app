@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'favorites/create'
+  get 'favorites/destroy'
   # Root
   root :to => "root#index"
   get 'root/index'
