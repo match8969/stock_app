@@ -1,0 +1,9 @@
+<% if user_signed_in? %>
+  <% if current_user.already_holding_company?(company) %>
+    <div><%= link_to "保有銘柄から削除", company_holding_path(company, id: company.holdings.find_by(user_id: current_user.id)), method: :delete, remote: true %></div>
+  <% else %>
+    <div><%= link_to "保有銘柄に追加", company_holdings_path(company), method: :post, remote: true %></div>
+  <% end %>
+<% else %>
+  <div>You are not signed in....</div>
+<% end %>

@@ -1,13 +1,18 @@
-<nav class="navbar">
+<nav class="navbar .header">
 	<div class="container-fluid">
     <ul class="nav mr-auto">
       <li class="nav-item">
-        <%= link_to 'Stock App', root_path, class: "avbar-brand nav-link top-link" %>
+        <%= link_to 'Stock App', root_path, class: "navbar-brand nav-link top-link" %>
       </li>
     </ul>
     <ul class="nav ml-auto">
-      <li class="nav-item"><%= link_to 'Link', root_path, class: "nav-link" %></li>
-      <li class="nav-item"><%= link_to 'Link', root_path, class: "nav-link" %></li>
+      <% if user_signed_in? %>
+        <li class="nav-item nav-link"><%= "#{current_user.email}" %></li>
+        <li class="nav-item"><%= link_to 'ログアウト', destroy_user_session_path, class: "nav-link" %></li>
+      <% else %>
+        <li class="nav-item"><%= link_to 'ログイン', user_session_path, class: "nav-link" %></li>
+        <li class="nav-item"><%= link_to '新規登録', new_user_registration_path, class: "nav-link" %></li>
+      <% end %>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

@@ -1,14 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "companies/show", type: :view do
-  before(:each) do
-    @company = assign(:company, Company.create!(
-      :name => "Name"
-    ))
-  end
-
-  it "renders attributes in <p>" do
-    render
-    expect(rendered).to match(/Name/)
-  end
+RSpec.describe "companies/show.html.erb", type: :view do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

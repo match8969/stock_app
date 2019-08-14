@@ -23,10 +23,10 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe CompaniesController, type: :controller do
+RSpec.describe Admin::MarketsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Company. As you add validations to Company, be sure to
+  # Admin::Market. As you add validations to Admin::Market, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -38,12 +38,12 @@ RSpec.describe CompaniesController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # CompaniesController. Be sure to keep this updated too.
+  # Admin::MarketsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "returns a success response" do
-      Company.create! valid_attributes
+      Admin::Market.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -51,8 +51,8 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      company = Company.create! valid_attributes
-      get :show, params: {id: company.to_param}, session: valid_session
+      market = Admin::Market.create! valid_attributes
+      get :show, params: {id: market.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
@@ -66,29 +66,29 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      company = Company.create! valid_attributes
-      get :edit, params: {id: company.to_param}, session: valid_session
+      market = Admin::Market.create! valid_attributes
+      get :edit, params: {id: market.to_param}, session: valid_session
       expect(response).to be_successful
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Company" do
+      it "creates a new Admin::Market" do
         expect {
-          post :create, params: {company: valid_attributes}, session: valid_session
-        }.to change(Company, :count).by(1)
+          post :create, params: {admin_market: valid_attributes}, session: valid_session
+        }.to change(Admin::Market, :count).by(1)
       end
 
-      it "redirects to the created company" do
-        post :create, params: {company: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Company.last)
+      it "redirects to the created admin_market" do
+        post :create, params: {admin_market: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(Admin::Market.last)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {company: invalid_attributes}, session: valid_session
+        post :create, params: {admin_market: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
@@ -100,41 +100,41 @@ RSpec.describe CompaniesController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested company" do
-        company = Company.create! valid_attributes
-        put :update, params: {id: company.to_param, company: new_attributes}, session: valid_session
-        company.reload
+      it "updates the requested admin_market" do
+        market = Admin::Market.create! valid_attributes
+        put :update, params: {id: market.to_param, admin_market: new_attributes}, session: valid_session
+        market.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the company" do
-        company = Company.create! valid_attributes
-        put :update, params: {id: company.to_param, company: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(company)
+      it "redirects to the admin_market" do
+        market = Admin::Market.create! valid_attributes
+        put :update, params: {id: market.to_param, admin_market: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(market)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        company = Company.create! valid_attributes
-        put :update, params: {id: company.to_param, company: invalid_attributes}, session: valid_session
+        market = Admin::Market.create! valid_attributes
+        put :update, params: {id: market.to_param, admin_market: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested company" do
-      company = Company.create! valid_attributes
+    it "destroys the requested admin_market" do
+      market = Admin::Market.create! valid_attributes
       expect {
-        delete :destroy, params: {id: company.to_param}, session: valid_session
-      }.to change(Company, :count).by(-1)
+        delete :destroy, params: {id: market.to_param}, session: valid_session
+      }.to change(Admin::Market, :count).by(-1)
     end
 
-    it "redirects to the companies list" do
-      company = Company.create! valid_attributes
-      delete :destroy, params: {id: company.to_param}, session: valid_session
-      expect(response).to redirect_to(companies_url)
+    it "redirects to the admin_markets list" do
+      market = Admin::Market.create! valid_attributes
+      delete :destroy, params: {id: market.to_param}, session: valid_session
+      expect(response).to redirect_to(admin_markets_url)
     end
   end
 

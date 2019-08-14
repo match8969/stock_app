@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+
+  <%= render 'fav_form', company: @company %>
+  <%= render 'hold_form', company: @company %>
+</p>

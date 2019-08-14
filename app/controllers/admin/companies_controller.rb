@@ -24,7 +24,12 @@ class Admin::CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    @company = Company.new(company_params)
+    ActiveRecord::Base.transaction do
+      @company = Company.new(company_params)
+      # TODO: more secure
+      @company.stock = Stock.new(market_id: params[:company][:market_id],code: params[:company][:code])
+      @company.save!
+    end
 
     respond_to do |format|
       if @company.save
@@ -69,6 +74,6 @@ class Admin::CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name)
+      params.require(:company).permit(:name, :country_id, :industry_id)
     end
 end

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>会社一覧</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @companies.each do |company| %>
+    <tr>
+      <td><%= company.name %></td>
+      <td><%= link_to 'Show', company %></td>
+      <td><%= render 'fav_form', company: company %></td>
+      <td><%= render 'hold_form', company: company %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
