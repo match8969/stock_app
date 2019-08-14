@@ -9,8 +9,6 @@ class User < ApplicationRecord
   has_many :holdings, dependent: :destroy
   has_many :holding_companies, through: :holdings, source: :company
 
-  bind_inum :can, UserCans
-
   def already_faved_company?(company)
     self.fav_companies.exists?(id: company.id)
   end
