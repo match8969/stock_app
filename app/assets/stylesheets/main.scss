@@ -48,8 +48,22 @@ body {
   text-align: center;
   background-color: #2E2F30;
   color: #fff;
+
+  .footer-lists {
+    list-style: none;
+    padding-left: 0;
+    .footer-list-link {
+      text-align: center;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      color: #fff;
+
+    }
+  }
 }
 
+
+/* body */
 
 .list-index-buttons {
   background-color: #fff;
