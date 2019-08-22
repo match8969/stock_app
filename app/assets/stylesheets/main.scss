@@ -103,5 +103,65 @@ body {
       color: #2E2F30;
     }
   }
+}
 
+/* About */
+.about {
+  text-align: center;
+  margin: 50px auto 50px;
+
+  .about-explanation {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    padding: 10px;
+  }
+
+  .criteria {
+    padding: 30px 0;
+  }
+
+  .row-boxes {
+    text-align: center;
+    padding: 50px 0 50px;
+
+    .about-box {
+      text-align: center; /* box の iconを含む枠をを中央寄せしてる */
+      padding: 30px 66px 30px;
+
+      .about-box-inner {
+        text-decoration: none;
+      }
+
+      .about-icon {
+        width: 200px;
+        height: 200px;
+        padding: 10px 0;
+        border: solid 3px #2E2F30;
+        border-radius: 50%;
+        font-size: 6rem;
+        color: #2E2F30;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 180px; /* これでbefore blockの高さが全体が設定KOK */
+      }
+
+      .about-title {
+        margin: 10px 0 10px;
+        letter-spacing: 4px;
+        font-size: 1.2rem;
+        font-family: "Comic Sans MS";
+        color: #2E2F30;
+      }
+    }
+  }
+  .method-description {
+    padding: 50px;
+  }
+}
+
+.method-description-message {
+  padding: 30px 50px 10px 30px;
+  text-align: left;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
 }
