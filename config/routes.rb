@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  # TODO: modify to admin path
-  get 'stocks/create'
-  get 'stocks/edit'
-  get 'stocks/update'
-  get 'stocks/destroy'
   # Root
   root :to => "root#index"
   get 'root/index'
@@ -21,7 +16,8 @@ Rails.application.routes.draw do
     resources :industries
     resources :countries
     resources :markets
-    # TODO: resources :stocks, only: [:create, edit, update, destroy]
+    resources :financial_reports
+    resources :stocks, only: [:create, edit, update, destroy]
   end
 
   # Public --------------------
