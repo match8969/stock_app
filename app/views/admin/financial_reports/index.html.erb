@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Financial Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tcfo</th>
+      <th>Net income</th>
+      <th>Total revenue</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @financial_reports.each do |financial_report| %>
+      <tr>
+        <td><%= financial_report.tcfo %></td>
+        <td><%= financial_report.net_income %></td>
+        <td><%= financial_report.total_revenue %></td>
+        <td><%= link_to 'Show', [:admin, financial_report] %></td>
+        <td><%= link_to 'Edit', edit_admin_financial_report_path(financial_report) %></td>
+        <td><%= link_to 'Destroy', [:admin, financial_report], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Financial Report', new_admin_financial_report_path %>

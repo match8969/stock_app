@@ -1,0 +1,32 @@
+<%= form_with(model: [:admin, financial_report], local: true) do |form| %>
+  <% if financial_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(financial_report.errors.count, "error") %> prohibited this financial_report from being saved:</h2>
+
+      <ul>
+      <% financial_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :tcfo %>
+    <%= form.number_field :tcfo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :net_income %>
+    <%= form.number_field :net_income %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_revenue %>
+    <%= form.number_field :total_revenue %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
