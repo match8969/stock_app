@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_003900) do
+ActiveRecord::Schema.define(version: 2019_08_25_111733) do
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", limit: 255
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 2019_08_23_003900) do
     t.integer "total_revenue"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "report_date"
     t.index ["company_id"], name: "index_financial_reports_on_company_id"
   end
 

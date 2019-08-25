@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :countries
     resources :markets
     resources :financial_reports
-    resources :stocks, only: [:create, edit, update, destroy]
+    resources :stocks, only: [:create, :edit, :update, :destroy]
   end
 
   # Public --------------------
