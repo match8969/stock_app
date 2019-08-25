@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Tcfo:</strong>
+  <%= @financial_report.tcfo %>
+</p>
+
+<p>
+  <strong>Net income:</strong>
+  <%= @financial_report.net_income %>
+</p>
+
+<p>
+  <strong>Total revenue:</strong>
+  <%= @financial_report.total_revenue %>
+</p>
+
+<%= link_to 'Edit', edit_admin_financial_report_path(@financial_report) %> |

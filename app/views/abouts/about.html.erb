@@ -1,47 +1,54 @@
 <div class="wrap root">
-  <div class="about container-fluid">
+  <div class="about">
     <h1 class="about-heading">Market Hack Appについて</h1>
-
     <div class="about-explanation">
       <p>Market Hack Appはアメリカの株取引を利用して、トレードを成功させたい人向けの情報を届けます。</p>
       <p>余分な情報を削ぎ落とし、いち早くユーザーに「買い」「売り」の判断する情報を届けます。</p>
       <p>株の価値判断について、決算情報を原則とします。「広瀬メソッド」を使用して下記の3点の観点で判断します</p>
     </div>
+  </div>
 
 
-    <div class="criteria">
-      <h2>判断基準</h2>
-      <dic class="row-boxes">
-        <div class="row">
-          <div class="about-box-inner about-box col-md-4">
-            <p class="about-icon">売</p>
-            <p class="about-title">売上高</p>
-          </div>
-          <div class="about-box col-md-4">
-            <p class="about-icon">EPS</p>
-            <p class="about-title">EPS</p>
-          </div>
-          <div class="about-box col-md-4">
-            <p class="about-icon">ガ</p>
-            <p class="about-title">ガイダンス</p>
-          </div>
-        </div>
-      </dic>
+  <div class="list-index-buttons container-fluid">
+    <div class="row">
+      <div class="link-box col-md-4">
+        <%= link_to root_path, class: "link-box-inner" do %>
+          <i class="index-icon fas">売</i>
+          <p class="icon-title">売上高</p>
+        <% end %>
+      </div>
+      <div class="link-box col-md-4">
+        <%= link_to root_path, class: "link-box-inner" do %>
+          <i class="index-icon fas">E</i>
+          <p class="icon-title">EPS</p>
+        <% end %>
+      </div>
+      <div class="link-box col-md-4">
+        <%= link_to root_path, class: "link-box-inner" do %>
+          <i class="index-icon fas">ガ</i>
+          <p class="icon-title">ガイダンス</p>
+        <% end %>
+      </div>
     </div>
 
-    <h2 class="method-heading">「広瀬メソッド」とは?</h2>
-    <div class="method-description">
-      <div class="row">
-        <div class="col-md-6">
-          <p class="method-description-message">
-            広瀬隆雄氏の提唱する「決算書の見方」に基づいて、良い株・悪い株を判定します。
-            彼の著書「MarketHack流 世界一わかりやすい米国式投資の技法」に基づいています。
-          </p>
-        </div>
-        <div class="method-book-link col-md-6">
-          <a class="method-image-link" href="https://www.amazon.co.jp/%EF%BC%AD%EF%BD%81%EF%BD%92%EF%BD%8B%EF%BD%85%EF%BD%94%EF%BC%A8%EF%BD%81%EF%BD%83%EF%BD%8B%E6%B5%81-%E4%B8%96%E7%95%8C%E4%B8%80%E3%82%8F%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E7%B1%B3%E5%9B%BD%E5%BC%8F%E6%8A%95%E8%B3%87%E3%81%AE%E6%8A%80%E6%B3%95-%E5%BA%83%E7%80%AC-%E9%9A%86%E9%9B%84-ebook/dp/B00H6XYC4O/ref=as_li_ss_il?_encoding=UTF8&qid=1565842058&sr=8-1&linkCode=li2&tag=match8969-22&linkId=7f63ce8b14ea20ff4c92d3d84ae00f3f&language=ja_JP" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00H6XYC4O&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=match8969-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=match8969-22&language=ja_JP&l=li2&o=9&a=B00H6XYC4O" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+    <div class="about">
+      <h2 class="method-heading">「広瀬メソッド」とは?</h2>
+      <div class="method-description">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="method-description-message">
+              広瀬隆雄氏の提唱する「決算書の見方」に基づいて、良い株・悪い株を判定します。
+              彼の著書「MarketHack流 世界一わかりやすい米国式投資の技法」に基づいています。
+            </p>
+          </div>
+          <div class="method-book-link col-md-6">
+            <a class="method-image-link" href="https://www.amazon.co.jp/%EF%BC%AD%EF%BD%81%EF%BD%92%EF%BD%8B%EF%BD%85%EF%BD%94%EF%BC%A8%EF%BD%81%EF%BD%83%EF%BD%8B%E6%B5%81-%E4%B8%96%E7%95%8C%E4%B8%80%E3%82%8F%E3%81%8B%E3%82%8A%E3%82%84%E3%81%99%E3%81%84%E7%B1%B3%E5%9B%BD%E5%BC%8F%E6%8A%95%E8%B3%87%E3%81%AE%E6%8A%80%E6%B3%95-%E5%BA%83%E7%80%AC-%E9%9A%86%E9%9B%84-ebook/dp/B00H6XYC4O/ref=as_li_ss_il?_encoding=UTF8&qid=1565842058&sr=8-1&linkCode=li2&tag=match8969-22&linkId=7f63ce8b14ea20ff4c92d3d84ae00f3f&language=ja_JP" target="_blank"><img border="0" src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=B00H6XYC4O&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=match8969-22&language=ja_JP" ></a><img src="https://ir-jp.amazon-adsystem.com/e/ir?t=match8969-22&language=ja_JP&l=li2&o=9&a=B00H6XYC4O" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
 </div>
