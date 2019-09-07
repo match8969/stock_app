@@ -14,9 +14,9 @@ class Company < ApplicationRecord
   # Period Ending
   REG_EXP_PERIOD_ENDING_TITLE=30 # TODO: 命名 : cashflowの方ってわかるようにしときたい。　指定reactidが違う,,,
   reg_exp_period_ending_pq_one=32
-  REG_EXP_PERIOD_ENDING_PQ_TWO=34
-  REG_EXP_PERIOD_ENDING_PQ_THREE=36
-  REG_EXP_PERIOD_ENDING_PQ_FOUR=38
+  reg_exp_period_ending_pq_two=34
+  reg_exp_period_ending_pq_three=36
+  reg_exp_period_ending_pq_four=38
 
   # 純利益
   REG_EXP_NET_INCOME_TITLE=41
@@ -99,8 +99,16 @@ class Company < ApplicationRecord
   def get_cashflow_data(doc)
 
 
-    # @type
-    reg_exp_period_ending_pq_one=32 # TODO: あとでenumで変換する
+    # Enum
+    reg_exp_period_ending_pq_one = 32 # TODO: あとでenumで変換する
+    reg_exp_period_ending_pq_two = 34
+    reg_exp_period_ending_pq_three = 36
+    reg_exp_period_ending_pq_four = 38
+
+    reg_exp_net_income_pq_one = 43
+    reg_exp_net_income_pq_two = 45
+    reg_exp_net_income_pq_three = 47
+    reg_exp_net_income_pq_four = 49
 
 
     # Financial reportの作成
@@ -139,40 +147,22 @@ class Company < ApplicationRecord
       puts "#{node}"
 
       # 決算の日付の取得
-      period_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_PERIOD_ENDING_TITLE}\"/)
       report_date_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_one}\"/)
-      report_date_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_PERIOD_ENDING_PQ_TWO}\"/)
-      report_date_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_PERIOD_ENDING_PQ_THREE}\"/)
-      report_date_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_PERIOD_ENDING_PQ_FOUR}\"/)
-
-
-      # test2 :NG とれてない。
-      # 原因 : モデルのdate型に適していないから、値がはいってないぽい。
-      # instanceメソッドで変換必要 : TODO
+      report_date_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_two}\"/)
+      report_date_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_three}\"/)
+      report_date_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_four}\"/)
 
       report_q_one.to_date(report_date_q1) unless report_date_q1.blank?
-      puts "===  report_q_one : #{report_q_one.report_date} ==="
-
-      # puts "period_title : #{period_title}"
-
-      # last
-      test_1 = "#{node.text}" if node.to_s.match(/.*?data-reactid="32"/)
-      test_2 = "#{node.text}" if node.to_s.match(/.*?data-reactid="34"/)
-      test_3 = "#{node.text}" if node.to_s.match(/.*?data-reactid="36"/)
-      test_4 = "#{node.text}" if node.to_s.match(/.*?data-reactid="38"/)
-
-      puts "test_1 : #{test_1}"
-      puts "test_2 : #{test_2}"
-      puts "test_3 : #{test_3}"
-      puts "test_4 : #{test_4}"
+      report_q_two.to_date(report_date_q2) unless report_date_q2.blank?
+      report_q_three.to_date(report_date_q3) unless report_date_q3.blank?
+      report_q_four.to_date(report_date_q4) unless report_date_q4.blank?
 
 
       # 純利益の取得
-      net_income_title = "#{node.text}"  if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_NET_INCOME_TITLE}\"/)
-      net_income_pre_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_NET_INCOME_PQ_ONE}\"/)
-      net_income_pre_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_NET_INCOME_PQ_TWO}\"/)
-      net_income_pre_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_NET_INCOME_PQ_THREE}\"/)
-      net_income_pre_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_NET_INCOME_PQ_FOUR}\"/)
+      report_q_one.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_one}\"/)
+      report_q_two.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_two}\"/)
+      report_q_three.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_three}\"/)
+      report_q_four.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_four}\"/)
 
       # 営業キャッシュフローの取得
       tcfo_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_TITLE}\"/)
@@ -181,6 +171,33 @@ class Company < ApplicationRecord
       tcfo_pre_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_PQ_THREE}\"/)
       tcfo_pre_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_PQ_FOUR}\"/)
     end
+
+    # save
+    report_q_one.save!
+    report_q_two.save!
+    report_q_three.save!
+    report_q_four.save!
+
+
+    # tst
+    puts "===== report_date ====="
+    puts "===  report_q_on.report_date : #{report_q_one.report_date} ==="
+    puts "===  report_q_two.report_date : #{report_q_two.report_date} ==="
+    puts "===  report_q_three.report_date : #{report_q_three.report_date} ==="
+    puts "===  report_q_four.report_date : #{report_q_four.report_date} ==="
+
+    puts "===== net_income ====="
+    puts "report_q_one.net_income : #{report_q_one.net_income}"
+    puts "report_q_two.net_income : #{report_q_two.net_income}"
+    puts "report_q_three.net_income : #{report_q_three.net_income}"
+    puts "report_q_four.net_income : #{report_q_four.net_income}"
+
+
+
+
+
+
+
   end
 
   # Total Revenue : 売上高
@@ -217,7 +234,6 @@ class Company < ApplicationRecord
       revenue_pre_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PQ_FOUR}\"/)
     end
   end
-
 
 
 end
