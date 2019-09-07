@@ -100,16 +100,23 @@ class Company < ApplicationRecord
 
 
     # Enum
+    ## period
+    reg_exp_period_ending_title = 30 # 万が一yahooのreactidがおかしくなったときのためのフラグ
     reg_exp_period_ending_pq_one = 32 # TODO: あとでenumで変換する
     reg_exp_period_ending_pq_two = 34
     reg_exp_period_ending_pq_three = 36
     reg_exp_period_ending_pq_four = 38
-
+    ## net_income
     reg_exp_net_income_pq_one = 43
     reg_exp_net_income_pq_two = 45
     reg_exp_net_income_pq_three = 47
     reg_exp_net_income_pq_four = 49
-
+    ## 営業キャッシュフロー
+    reg_exp_tcfo_pq_title = 121
+    reg_exp_tcfo_pq_one = 123
+    reg_exp_tcfo_pq_two = 125
+    reg_exp_tcfo_pq_three = 127
+    reg_exp_tcfo_pq_four = 129
 
     # Financial reportの作成
     report_q_one = self.financial_reports.new
@@ -141,12 +148,12 @@ class Company < ApplicationRecord
     reg_exp_cash_flow = '//div[@id="render-target-default"]//div[@data-reactid="1"]//div[@data-reactid="25"]//span'
 
     doc.xpath(reg_exp_cash_flow).each do |node|
-
-
       puts " === node ==="
       puts "#{node}"
 
       # 決算の日付の取得
+      report_date_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_title}\"/)
+      puts "Alart!!!!!" unless report_date_title == "Period Ending"
       report_date_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_one}\"/)
       report_date_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_two}\"/)
       report_date_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_three}\"/)
@@ -157,19 +164,20 @@ class Company < ApplicationRecord
       report_q_three.to_date(report_date_q3) unless report_date_q3.blank?
       report_q_four.to_date(report_date_q4) unless report_date_q4.blank?
 
-
       # 純利益の取得
+      # TODO :ここもtitleをいれて安全を期したい、。
       report_q_one.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_one}\"/)
       report_q_two.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_two}\"/)
       report_q_three.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_three}\"/)
       report_q_four.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_four}\"/)
 
       # 営業キャッシュフローの取得
-      tcfo_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_TITLE}\"/)
-      tcfo_pre_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_PQ_ONE}\"/)
-      tcfo_pre_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_PQ_TWO}\"/)
-      tcfo_pre_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_PQ_THREE}\"/)
-      tcfo_pre_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_TCFO_PQ_FOUR}\"/)
+      tcfo_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_title}\"/)
+      puts "Alart!!!!!" unless tcfo_title == "Total Cash Flow From Operating Activities" # TODO
+      report_q_one.tcfo = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_one}\"/)
+      report_q_two.tcfo = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_two}\"/)
+      report_q_three.tcfo = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_three}\"/)
+      report_q_four.tcfo = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_four}\"/)
     end
 
     # save
@@ -192,12 +200,11 @@ class Company < ApplicationRecord
     puts "report_q_three.net_income : #{report_q_three.net_income}"
     puts "report_q_four.net_income : #{report_q_four.net_income}"
 
-
-
-
-
-
-
+    puts "===== total cash flow from operation activities ====="
+    puts "report_q_one.tcfo : #{report_q_one.tcfo}"
+    puts "report_q_two.tcfo : #{report_q_two.tcfo}"
+    puts "report_q_three.tcfo : #{report_q_three.tcfo}"
+    puts "report_q_four.tcfo : #{report_q_four.tcfo}"
   end
 
   # Total Revenue : 売上高
