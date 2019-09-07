@@ -107,6 +107,7 @@ class Company < ApplicationRecord
     reg_exp_period_ending_pq_three = 36
     reg_exp_period_ending_pq_four = 38
     ## net_income
+    reg_exp_net_income_title = 41
     reg_exp_net_income_pq_one = 43
     reg_exp_net_income_pq_two = 45
     reg_exp_net_income_pq_three = 47
@@ -124,36 +125,17 @@ class Company < ApplicationRecord
     report_q_three = self.financial_reports.new
     report_q_four = self.financial_reports.new
 
-    # 決算の日付の取得
-    period_title = ""
-    report_date_q1 = ""
-    report_date_q2 = ""
-    report_date_q3 = ""
-    report_date_q4 = ""
-
-    # 純利益の取得
-    net_income_title = ""
-    net_income_pre_q1 = ""
-    net_income_pre_q2 = ""
-    net_income_pre_q3 = ""
-    net_income_pre_q4 = ""
-
-    # 営業キャッシュフローの取得
-    tcfo_title = ""
-    tcfo_pre_q1 = ""
-    tcfo_pre_q2 = ""
-    tcfo_pre_q3 = ""
-    tcfo_pre_q4 = ""
-
     reg_exp_cash_flow = '//div[@id="render-target-default"]//div[@data-reactid="1"]//div[@data-reactid="25"]//span'
 
     doc.xpath(reg_exp_cash_flow).each do |node|
       puts " === node ==="
       puts "#{node}"
 
+      # TODO: Alertのとこ、めっちゃでるからロジック必要。
+
       # 決算の日付の取得
       report_date_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_title}\"/)
-      puts "Alart!!!!!" unless report_date_title == "Period Ending"
+      puts "Alart!!!!!" if report_date_title.present? & report_date_title != "Period Ending"
       report_date_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_one}\"/)
       report_date_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_two}\"/)
       report_date_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_period_ending_pq_three}\"/)
@@ -165,7 +147,10 @@ class Company < ApplicationRecord
       report_q_four.to_date(report_date_q4) unless report_date_q4.blank?
 
       # 純利益の取得
-      # TODO :ここもtitleをいれて安全を期したい、。
+      net_income_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_title}\"/)
+      puts "net_income_title : #{net_income_title}"
+      puts "Alert!!!" if net_income_title.present? & net_income_title != "Net Income"
+
       report_q_one.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_one}\"/)
       report_q_two.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_two}\"/)
       report_q_three.net_income = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_net_income_pq_three}\"/)
@@ -173,7 +158,7 @@ class Company < ApplicationRecord
 
       # 営業キャッシュフローの取得
       tcfo_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_title}\"/)
-      puts "Alart!!!!!" unless tcfo_title == "Total Cash Flow From Operating Activities" # TODO
+      puts "Alart!!!!!" if tcfo_title.present? & tcfo_title == "Total Cash Flow From Operating Activities" # TODO
       report_q_one.tcfo = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_one}\"/)
       report_q_two.tcfo = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_two}\"/)
       report_q_three.tcfo = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_tcfo_pq_three}\"/)
