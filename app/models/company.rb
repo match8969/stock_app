@@ -171,61 +171,81 @@ class Company < ApplicationRecord
     report_q_three.save!
     report_q_four.save!
 
-
     # tst
-    puts "===== report_date ====="
-    puts "===  report_q_on.report_date : #{report_q_one.report_date} ==="
-    puts "===  report_q_two.report_date : #{report_q_two.report_date} ==="
-    puts "===  report_q_three.report_date : #{report_q_three.report_date} ==="
-    puts "===  report_q_four.report_date : #{report_q_four.report_date} ==="
-
-    puts "===== net_income ====="
-    puts "report_q_one.net_income : #{report_q_one.net_income}"
-    puts "report_q_two.net_income : #{report_q_two.net_income}"
-    puts "report_q_three.net_income : #{report_q_three.net_income}"
-    puts "report_q_four.net_income : #{report_q_four.net_income}"
-
-    puts "===== total cash flow from operation activities ====="
-    puts "report_q_one.tcfo : #{report_q_one.tcfo}"
-    puts "report_q_two.tcfo : #{report_q_two.tcfo}"
-    puts "report_q_three.tcfo : #{report_q_three.tcfo}"
-    puts "report_q_four.tcfo : #{report_q_four.tcfo}"
+    # puts "===== report_date ====="
+    # puts "===  report_q_on.report_date : #{report_q_one.report_date} ==="
+    # puts "===  report_q_two.report_date : #{report_q_two.report_date} ==="
+    # puts "===  report_q_three.report_date : #{report_q_three.report_date} ==="
+    # puts "===  report_q_four.report_date : #{report_q_four.report_date} ==="
+    #
+    # puts "===== net_income ====="
+    # puts "report_q_one.net_income : #{report_q_one.net_income}"
+    # puts "report_q_two.net_income : #{report_q_two.net_income}"
+    # puts "report_q_three.net_income : #{report_q_three.net_income}"
+    # puts "report_q_four.net_income : #{report_q_four.net_income}"
+    #
+    # puts "===== total cash flow from operation activities ====="
+    # puts "report_q_one.tcfo : #{report_q_one.tcfo}"
+    # puts "report_q_two.tcfo : #{report_q_two.tcfo}"
+    # puts "report_q_three.tcfo : #{report_q_three.tcfo}"
+    # puts "report_q_four.tcfo : #{report_q_four.tcfo}"
   end
 
   # Total Revenue : 売上高
   def get_financial_data(doc)
     puts "----- [get_financial_data] start -----"
-    # 決算の日付の取得
-    revenue_period_title = ""
-    revenue_report_date_q1 = ""
-    revenue_report_date_q2 = ""
-    revenue_report_date_q3 = ""
-    revenue_report_date_q4 = ""
 
-    # 売上高
-    revenue_title = ""
-    revenue_pre_q1 = ""
-    revenue_pre_q2 = ""
-    revenue_pre_q3 = ""
-    revenue_pre_q4 = ""
+    # Enum
+    # period
+    reg_exp_revenue_period_ending_title = 30
+    reg_exp_revenue_period_ending_pq_one = 32
+    reg_exp_revenue_period_ending_pq_two = 34
+    reg_exp_revenue_period_ending_pq_three = 36
+    reg_exp_revenue_period_ending_pq_four = 38
+
+    # revenue
+    reg_exp_revenue_title = 41
+    reg_exp_revenue_pq_one = 43
+    reg_exp_revenue_pq_two = 45
+    reg_exp_revenue_pq_three = 47
+    reg_exp_revenue_pq_four = 49
+
+    # Financial reportの作成
+    report_q_one = self.financial_reports.new
+    report_q_two = self.financial_reports.new
+    report_q_three = self.financial_reports.new
+    report_q_four = self.financial_reports.new
 
     reg_exp_financial = '//div[@id="render-target-default"]//div[@data-reactid="1"]//div[@data-reactid="25"]//span'
 
     doc.xpath(reg_exp_financial).each do |node|
-      # puts "node : #{node}"
-      revenue_period_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PERIOD_ENDING_TITLE}\"/)
-      revenue_report_date_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PERIOD_ENDING_PQ_ONE}\"/)
-      revenue_report_date_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PERIOD_ENDING_PQ_TWO}\"/)
-      revenue_report_date_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PERIOD_ENDING_PQ_THREE}\"/)
-      revenue_report_date_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PERIOD_ENDING_PQ_FOUR}\"/)
+      # 日時の取得&保存
+      revenue_period_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_period_ending_title}\"/)
+      revenue_report_date_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_period_ending_pq_one}\"/)
+      revenue_report_date_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_period_ending_pq_two}\"/)
+      revenue_report_date_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_period_ending_pq_three}\"/)
+      revenue_report_date_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_period_ending_pq_four}\"/)
+      report_q_one.to_date(revenue_report_date_q1) unless revenue_report_date_q1.blank?
+      report_q_two.to_date(revenue_report_date_q2) unless revenue_report_date_q2.blank?
+      report_q_three.to_date(revenue_report_date_q3) unless revenue_report_date_q3.blank?
+      report_q_four.to_date(revenue_report_date_q4) unless revenue_report_date_q4.blank?
 
-      revenue_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_TITLE}\"/)
-      revenue_pre_q1 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PQ_ONE}\"/)
-      revenue_pre_q2 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PQ_TWO}\"/)
-      revenue_pre_q3 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PQ_THREE}\"/)
-      revenue_pre_q4 = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{REG_EXP_REVENUE_PQ_FOUR}\"/)
+      # Revenueの取得&保存
+      revenue_title = "#{node.text}" if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_title}\"/)
+      report_q_one.total_revenue = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_pq_one}\"/)
+      report_q_two.total_revenue = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_pq_two}\"/)
+      report_q_three.total_revenue = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_pq_three}\"/)
+      report_q_four.total_revenue = "#{node.text}".gsub(/,/, '').to_i*1000 if node.to_s.match(/.*?data-reactid=\"#{reg_exp_revenue_pq_four}\"/)
     end
+
+    # save : TODO : 保存が重複するので「今までにない日付があったら取得する」を条件として追加したい
+    report_q_one.save!
+    report_q_two.save!
+    report_q_three.save!
+    report_q_four.save!
   end
+  # c = Company.new
+  # c.scraping_yahoo_finance('ROKU')
 
 
 end
