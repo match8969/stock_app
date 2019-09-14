@@ -49,12 +49,15 @@ class Company < ApplicationRecord
 
 
 
-  def scraping_yahoo_finance(ticker_symbol)
+  def scraping_yahoo_finance
     # c = Company.new
     # c.scraping_yahoo_finance('ROKU')
     require 'open-uri'
     require 'nokogiri'
     require 'uri'
+
+    stock = self.stock
+    ticker_symbol = stock.code
 
     # スクレイピング先のURL
     root_yahoo_finance_url = 'https://finance.yahoo.com/'
