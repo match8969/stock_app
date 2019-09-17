@@ -17,4 +17,9 @@ class User < ApplicationRecord
     self.holding_companies.exists?(id: company.id)
   end
 
+
+  def is_admin?
+    self.can == 777 # TODO : to enums
+  end
+
 end
