@@ -71,6 +71,14 @@ group :development, :test do
 
   # Rspec 時間設定
   gem 'timecop'
+
+  # Pry & extensions
+  # rails consoleをirbからpryに置き換える。
+  gem 'pry-rails'
+  # シンタックスハイライト
+  gem 'pry-coolline'
+  # ブレークポイント埋め込み
+  gem 'pry-byebug'
   
   # ------------------------------------------------------------
 end
@@ -103,4 +111,7 @@ gem 'mini_magick'
 
 # AWS
 gem 'aws-sdk'
+
+# Inum
+gem 'inum'
 

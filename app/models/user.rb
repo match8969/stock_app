@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
 
   def is_admin?
-    self.can == 777 # TODO : to enum
+    self.can == 777 # TODO : to enums
   end
 
 end

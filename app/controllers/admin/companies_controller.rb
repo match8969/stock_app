@@ -69,11 +69,9 @@ class Admin::CompaniesController < ApplicationController
 
   # 決算書の更新
   def update_financial_report
-    # TODO
     puts "=== update_financial_report ==="
-    @company.scraping_yahoo_finance
-    redirect_back(fallback_location: root_path) # admin_companies_url
-    # redirect_back(fallback_location: admin_companies_url) # admin_companies_url
+    FinancialReportService.new(@company.id).scraping_yahoo_finance
+    redirect_back(fallback_location: root_path)
   end
 
   private
