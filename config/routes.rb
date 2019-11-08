@@ -18,9 +18,6 @@ Rails.application.routes.draw do
     resources :markets
     resources :financial_reports
     resources :stocks, only: [:create, :edit, :update, :destroy]
-
-    # special
-    get 'companies/update_report/:id' => 'companies#update_financial_report', as: :companies_update_report
   end
 
   # Public --------------------

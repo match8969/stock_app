@@ -1,5 +1,5 @@
 class Admin::CompaniesController < ApplicationController
-  before_action :set_company, only: [:show, :edit, :update, :destroy, :update_financial_report]
+  before_action :set_company, only: [:show, :edit, :update, :destroy]
 
   # GET /companies
   # GET /companies.json
@@ -64,14 +64,6 @@ class Admin::CompaniesController < ApplicationController
       format.html { redirect_to admin_companies_url, notice: 'Company was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-
-  # 決算書の更新
-  def update_financial_report
-    puts "=== update_financial_report ==="
-    FinancialReportService.new(@company.id).scraping_yahoo_finance
-    redirect_back(fallback_location: root_path)
   end
 
   private
