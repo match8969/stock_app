@@ -14,9 +14,11 @@
     <% @companies.each do |company| %>
       <tr>
         <td><%= company.name %></td>
+        <td><%= company.stock.code if company.stock.present? %></td>
         <td><%= link_to 'Show', [:admin, company] %></td>
         <td><%= link_to 'Edit', edit_admin_company_path(company) %></td>
         <td><%= link_to 'Destroy', [:admin, company], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Update Report', admin_companies_update_report_path(company) %></td>
       </tr>
     <% end %>
   </tbody>

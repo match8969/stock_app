@@ -5,4 +5,29 @@
   <%= @company.name %>
 </p>
 
+(単位 : ドル)
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">Report Date(決算日)</th>
+    <th scope="col">Total Cash Flow From Operationg(営業キャッシュフロー)</th>
+    <th scope="col">Net Income(純利益)</th>
+    <th scope="col">Total Revenue(売上高)</th>
+    <th scope="col">Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @company.financial_reports.each do |financial_report| %>
+    <tr>
+      <td><%= financial_report.report_date %></td>
+      <td><%= financial_report.tcfo %></td>
+      <td><%= financial_report.net_income %></td>
+      <td><%= financial_report.total_revenue %></td>
+      <td><%= link_to 'Destroy', [:admin, financial_report], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
 <%= link_to 'Edit', edit_admin_company_path(@company) %>
