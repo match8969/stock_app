@@ -55,7 +55,10 @@ class Admin::FinancialReportsController < ApplicationController
   # DELETE /financial_reports/1.json
   def destroy
     @financial_report.destroy
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.html { redirect_to financial_reports_url, notice: 'Financial report was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
